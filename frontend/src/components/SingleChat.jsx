@@ -178,7 +178,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {messages &&
               (!selectedChat.isGroupChat ? (
                 <>
+                  <Box style={{ color:'white'}}>
                   {getSender(user, selectedChat.users)}
+                  </Box>
                   <ProfileModal
                     user={getSenderFull(user, selectedChat.users)}
                   />
@@ -236,9 +238,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <></>
               )}
               <Input
-                variant="filled"
-                bg="#E0E0E0"
+                bg="black"
                 placeholder="Enter a message.."
+                style={{ 
+
+                  border:'#2A4558 solid 1px',
+                  color: 'white'
+                 }}
                 value={newMessage}
                 onChange={typingHandler}
               />
