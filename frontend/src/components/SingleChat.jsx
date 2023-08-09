@@ -254,7 +254,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       ) : (
         // to get socket.io on same page
         <Box d="flex" alignItems="center" justifyContent="center" h="100%">
-          <Text
+          <Text style={{ color: 'white' }}
            >
             Click on a user to start chatting
           </Text>
