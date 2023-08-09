@@ -1,13 +1,10 @@
 {
-  "homepage": "https://aniket0332.github.io/Socialize",
   "name": "socialize",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon backend/server.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "start": "nodemon backend/server.js"
     },
   "author": "Aniket Yadav",
   "license": "ISC",
