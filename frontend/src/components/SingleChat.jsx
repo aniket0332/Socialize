@@ -15,7 +15,7 @@ import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../context/ChatProvider";
 
-const ENDPOINT = "https://socialize-backend-nvni.onrender.com"; // "https://socializeherokuapp.com"; -> After deployment
+const ENDPOINT = "https://socialize-backend-nvni.onrender.com"; 
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
