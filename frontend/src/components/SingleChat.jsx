@@ -1,6 +1,7 @@
 import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
+import { Button } from "@chakra-ui/react";
 import "./styles.css";
 import { IconButton, Spinner, useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
@@ -10,10 +11,10 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 import animationData from "../animations/typing.json";
-
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../context/ChatProvider";
+import SendIcon from '@mui/icons-material/Send';
 
 const ENDPOINT = "https://socialize-backend-nvni.onrender.com"; 
 var socket, selectedChatCompare;
@@ -78,7 +79,39 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       });
     }
   };
-
+const SubmitHandler = async (event) => {
+    if (newMessage) {
+      socket.emit("stop typing", selectedChat._id);
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        setNewMessage("");
+        const { data } = await axios.post(
+          "/api/message",
+          {
+            content: newMessage,
+            chatId: selectedChat,
+          },
+          config
+        );
+        socket.emit("new message", data);
+        setMessages([...messages, data]);
+      } catch (error) {
+        toast({
+          title: "Error Occured!",
+          description: "Failed to send the Message",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+    }
+  };
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       socket.emit("stop typing", selectedChat._id);
@@ -224,12 +257,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               id="first-name"
               isRequired
               mt={3}
+              style={{ display: 'flex' }}
             >
               {istyping ? (
                 <div>
                   {/* <Lottie
                     options={defaultOptions}
-                    // height={50}
+                    height={50}
                     width={70}
                     style={{ marginBottom: 15, marginLeft: 0 }}
                   /> */}
@@ -241,13 +275,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 bg="black"
                 placeholder="Enter a message.."
                 style={{ 
-
+                  width:'calc(100%-60px)',
                   border:'#2A4558 solid 1px',
-                  color: 'white'
+                  color: 'white',
+                  marginRight:'10px'
                  }}
                 value={newMessage}
                 onChange={typingHandler}
               />
+              <button onClick={SubmitHandler} style={{ width:'50px', background:'white', display:'flex', alignItems: 'center', justifyContent: "center",borderRadius:'25%' }}>
+              <SendIcon style={{fontSize:'25px' }}/>
+              </button>
             </FormControl>
           </Box>
         </>
