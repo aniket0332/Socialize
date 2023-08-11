@@ -1,7 +1,6 @@
 import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/react";
 import "./styles.css";
 import { IconButton, Spinner, useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
@@ -10,11 +9,16 @@ import axios from "axios";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
-import animationData from "../animations/typing.json";
+// import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../context/ChatProvider";
 import SendIcon from '@mui/icons-material/Send';
+import chattoneAudio from '../sound/chattone.mp3';
+import sentmessageAudio from '../sound/sentmessage.mp3';
+
+var audioReceive = new Audio(chattoneAudio);
+var audioSend = new Audio(sentmessageAudio);
 
 const ENDPOINT = "https://socialize-backend-nvni.onrender.com"; 
 var socket, selectedChatCompare;
@@ -28,14 +32,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [istyping, setIsTyping] = useState(false);
   const toast = useToast();
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: animationData,
+  //   rendererSettings: {
+  //     preserveAspectRatio: "xMidYMid slice",
+  //   },
+  // };
   const { selectedChat, setSelectedChat, user, notification, setNotification } =
     ChatState();
 
@@ -114,6 +118,7 @@ const SubmitHandler = async (event) => {
   };
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
+       audioSend.play();
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -156,6 +161,7 @@ const SubmitHandler = async (event) => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
+      audioReceive.play();
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id

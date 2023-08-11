@@ -31,6 +31,7 @@ import { Effect } from "react-notification-badge";
 import { getSender } from "../../config/ChatLogics";
 import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../context/ChatProvider";
+import { useBreakpointValue } from "@chakra-ui/react";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -127,6 +128,7 @@ function SideDrawer() {
       });
     }
   };
+  const display = useBreakpointValue({ base:"none", md: 'flex' });
 
   return (
     <>
@@ -145,7 +147,7 @@ function SideDrawer() {
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
           <Button variant="white" onClick={onOpen}>
           <i className="fas fa-search" style={{color: "#ffffff"}}></i>
-            <Text d={{ base: "none", md: "flex"}} color='white' px={4}>
+            <Text style={{ display:display}} color='white' px={4}>
               Search User
             </Text>
           </Button>
