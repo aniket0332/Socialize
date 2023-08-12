@@ -289,8 +289,8 @@ const SubmitHandler = async (event) => {
                 value={newMessage}
                 onChange={typingHandler}
               />
-              <button onClick={SubmitHandler} style={{ width:'50px', background:'white', display:'flex', alignItems: 'center', justifyContent: "center",borderRadius:'25%' }}>
-              <SendIcon style={{fontSize:'25px' }}/>
+              <button onClick={SubmitHandler} style={{ width:'50px', background:'white', display:'flex', alignItems: 'center', justifyContent: "center",borderRadius:'15%' }}>
+              <SendIcon style={{fontSize:'27px' }}/>
               </button>
             </FormControl>
           </Box>

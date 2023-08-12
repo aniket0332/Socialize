@@ -28,17 +28,17 @@ function Homepage() {
       d="flex"
       justifyContent="center"
       p={3}
-      bg="white"
+      bg="rgb(240, 248, 255, 0.9)"
       w="100%"
       m="40px 0 15px 0"
       borderRadius="lg"
       borderWidth="1px"
     >
-      <Text fontSize="4xl">
+      <Text fontSize="4xl" style={{ marginLeft:'10px' }}>
       Socialize
       </Text>
       </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
+      <Box bg="rgb(240, 248, 255, 0.9)" w="100%" p={4} borderRadius="lg" borderWidth="1px">
         <Tabs isFitted variant="soft-rounded">
           <TabList mb="1em">
             <Tab>Login</Tab>

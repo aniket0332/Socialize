@@ -69,7 +69,7 @@ const MyChats = ({ fetchAgain }) => {
         px={3}
         fontSize={{ base: "28px", md: "30px" }}
       >
-        My Chats
+        Chats
         <GroupChatModal>
           <Button
             d="flex"
