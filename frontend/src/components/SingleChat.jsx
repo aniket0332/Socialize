@@ -226,7 +226,9 @@ const SubmitHandler = async (event) => {
                 </>
               ) : (
                 <>
+                <Box style={{ color:'white'}}>
                   {selectedChat.chatName.toUpperCase()}
+                  </Box>
                   <UpdateGroupChatModal
                     fetchMessages={fetchMessages}
                     fetchAgain={fetchAgain}
